@@ -33,7 +33,7 @@ public class StatsFile extends GameStats {
                     LocalDateTime timestamp = LocalDateTime.parse(values[0]);
                     int numGuesses = Integer.parseInt(values[1]);
 
-                    if (timestamp.isBefore(limit)) {
+                    if (timestamp.isAfter(limit)) {
                         statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
                     }
                 }
