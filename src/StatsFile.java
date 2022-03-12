@@ -62,6 +62,6 @@ public class StatsFile extends GameStats {
 
     @Override
     public int maxNumGuesses(){
-        return statsMap.lastKey();
+        return (statsMap.isEmpty() ? 0 : statsMap.lastKey());
     }
 }
