@@ -11,14 +11,6 @@ public class ComputerGuessesGame {
     private int upperBound; // correct number is <= upperBound
     private int lowerBound; // correct number is >= lowerBound
 
-    ComputerGuessesGame() {
-        numGuesses = 0;
-        upperBound = 1000;
-        lowerBound = 1;
-
-
-    }
-
     String incorrectGuess(boolean isLower) {
         if (isLower) {
             upperBound = Math.min(upperBound, lastGuess);
@@ -39,12 +31,12 @@ public class ComputerGuessesGame {
         cardLayout.show(cardsPanel, ScreenID.GAME_OVER.name());
     }
 
-    public void componentShown(java.awt.event.ComponentEvent e, JLabel guessMessage) {
+    String startNewGame() {
         numGuesses = 0;
         upperBound = 1000;
         lowerBound = 1;
 
         lastGuess = (lowerBound + upperBound + 1) / 2;
-        guessMessage.setText("I guess " + lastGuess + ".");
+        return "I guess " + lastGuess + ".";
     }
 }
