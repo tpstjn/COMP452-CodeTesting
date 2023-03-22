@@ -90,6 +90,27 @@ public class StatsPanel extends JPanel {
         }
     }
 
+    private void addNewResult(int binIndex) {
+        String binName;
+        if(binIndex == BIN_EDGES.length-1){
+            // last bin
+            binName = BIN_EDGES[binIndex] + " or more";
+        }
+        else{
+            int upperBound = BIN_EDGES[binIndex+1] - 1;
+            if(upperBound > BIN_EDGES[binIndex]){
+                binName = BIN_EDGES[binIndex] + "-" + upperBound;
+            }
+            else{
+                binName = Integer.toString(BIN_EDGES[binIndex]);
+            }
+        }
+
+        resultsPanel.add(new JLabel(binName));
+        JLabel result = new JLabel("--");
+        resultsLabels.add(result);
+        resultsPanel.add(result);
+    }
     private void updateResultsPanel(){
         clearResults();
 
