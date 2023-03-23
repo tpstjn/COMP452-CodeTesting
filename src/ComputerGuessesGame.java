@@ -23,12 +23,9 @@ public class ComputerGuessesGame {
         return "I guess " + lastGuess + ".";
     }
 
-    void correctGuess(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback) {
+    void correctGuess(Consumer<GameResult> gameFinishedCallback) {
         GameResult result = new GameResult(false, lastGuess, numGuesses);
         gameFinishedCallback.accept(result);
-
-        CardLayout cardLayout = (CardLayout) cardsPanel.getLayout();
-        cardLayout.show(cardsPanel, ScreenID.GAME_OVER.name());
     }
 
     String startNewGame() {
