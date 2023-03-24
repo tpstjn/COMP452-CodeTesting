@@ -1,5 +1,10 @@
+import com.opencsv.CSVReader;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +14,6 @@ import java.util.ArrayList;
  * TODO: refactor this class
  */
 public class StatsPanel extends JPanel {
-
     private final JPanel resultsPanel;
     private StatsFile stats;
 
@@ -19,7 +23,7 @@ public class StatsPanel extends JPanel {
     private ArrayList<JLabel> resultsLabels;
 
     public StatsPanel(JPanel cardsPanel) {
-        stats = new StatsFile();
+        createStatsFile();
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         JLabel title = new JLabel("Your Stats");
@@ -68,6 +72,19 @@ public class StatsPanel extends JPanel {
                 updateResultsPanel();
             }
         });
+    }
+
+    /**
+     * Creates the stats file used for this game
+     */
+    private void createStatsFile() {
+        try (CSVReader csvReader = new CSVReader(new FileReader(StatsFile.FILENAME))) {
+            stats = new StatsFile(csvReader);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void clearResults(){

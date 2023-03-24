@@ -18,15 +18,18 @@ public class ComputerGuessesGame {
     }
 
     String makeGuess(boolean isLower) {
-        if (numGuesses != 0) {
-            if (isLower) {
-                upperBound = Math.min(upperBound, lastGuess);
-            } else {
-                lowerBound = Math.max(lowerBound, lastGuess + 1);
-            }
+        if (isLower) {
+            upperBound = Math.min(upperBound, lastGuess);
+        } else {
+            lowerBound = Math.max(lowerBound, lastGuess + 1);
         }
         lastGuess = (lowerBound + upperBound + 1) / 2;
         numGuesses += 1;
+        return "I guess " + lastGuess + ".";
+    }
+
+    String makeFirstGuess() {
+        lastGuess = (lowerBound + upperBound + 1) / 2;
         return "I guess " + lastGuess + ".";
     }
 

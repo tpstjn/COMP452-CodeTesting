@@ -15,19 +15,24 @@ import java.util.TreeMap;
  * Returns the number of games *within the last 30 days* where the person took a given number of guesses
  */
 public class StatsFile extends GameStats {
-    public static final String binEdges = "guess-the-number-stats.csv";
+    public static final String FILENAME = "guess-the-number-stats.csv";
 
     // maps the number of guesses required to the number of games within
     // the past 30 days where the person took that many guesses
     private SortedMap<Integer, Integer> statsMap;
+    private CSVReader statsReader;
 
-    public StatsFile(){
+    public StatsFile(CSVReader statsReaderDouble){
         statsMap = new TreeMap<>();
-        LocalDateTime limit = LocalDateTime.now().minusDays(30);
+        this.statsReader = statsReaderDouble;
+        initializeStatsReader();
+    }
 
-        try (CSVReader csvReader = new CSVReader(new FileReader(binEdges))) {
+    private void initializeStatsReader() {
+        LocalDateTime limit = LocalDateTime.now().minusDays(30);
+        try {
             String[] values = null;
-            while ((values = csvReader.readNext()) != null) {
+            while ((values = statsReader.readNext()) != null) {
                 // values should have the date and the number of guesses as the two fields
                 try {
                     LocalDateTime timestamp = LocalDateTime.parse(values[0]);
@@ -54,7 +59,6 @@ public class StatsFile extends GameStats {
             // NOTE: For this project, you do not need unit tests for handling this exception.
         }
     }
-
 
     int getNumGames(int binIndex, int[] binEdges){
         final int lowerBound = binEdges[binIndex];

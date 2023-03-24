@@ -38,6 +38,8 @@ public class HumanGuessesGame {
         return numGuesses;
     }
 
+    int getTarget() { return target; }
+
     boolean isDone(){
         return gameIsDone;
     }

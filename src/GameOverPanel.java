@@ -86,7 +86,7 @@ public class GameOverPanel extends JPanel {
      */
     public void writeGuessLog(int numGuesses) {
         // write stats to file
-        try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.binEdges, true))) {
+        try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.FILENAME, true))) {
 
             String [] record = new String[2];
             record[0] = LocalDateTime.now().toString();
