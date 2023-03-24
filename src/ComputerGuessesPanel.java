@@ -14,7 +14,6 @@ public class ComputerGuessesPanel extends JPanel {
     private ComputerGuessesGame game;
 
     public ComputerGuessesPanel(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback){
-        game = new ComputerGuessesGame();
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         JLabel guessMessage = new JLabel("I guess ___.");
@@ -32,7 +31,7 @@ public class ComputerGuessesPanel extends JPanel {
         JButton lowerBtn = new JButton("Lower");
 
         lowerBtn.addActionListener(e -> {
-            guessMessage.setText(game.incorrectGuess(true));
+            guessMessage.setText(game.makeGuess(true));
         });
         this.add(lowerBtn);
         lowerBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -54,7 +53,7 @@ public class ComputerGuessesPanel extends JPanel {
         // refactor to make higherBtn call method
         JButton higherBtn = new JButton("Higher");
         higherBtn.addActionListener(e -> {
-            guessMessage.setText(game.incorrectGuess(false));
+            guessMessage.setText(game.makeGuess(false));
         });
         this.add(higherBtn);
         higherBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -62,7 +61,8 @@ public class ComputerGuessesPanel extends JPanel {
 
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent e) {
-                guessMessage.setText(game.startNewGame());
+                game = new ComputerGuessesGame();
+                guessMessage.setText(game.makeGuess(false));
             }
         });
     }

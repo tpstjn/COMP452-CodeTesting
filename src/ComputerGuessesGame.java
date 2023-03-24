@@ -11,12 +11,19 @@ public class ComputerGuessesGame {
     private int upperBound; // correct number is <= upperBound
     private int lowerBound; // correct number is >= lowerBound
 
-    String incorrectGuess(boolean isLower) {
-        if (isLower) {
-            upperBound = Math.min(upperBound, lastGuess);
-        }
-        else {
-            lowerBound = Math.max(lowerBound, lastGuess + 1);
+    ComputerGuessesGame() {
+        numGuesses = 0;
+        upperBound = 1000;
+        lowerBound = 1;
+    }
+
+    String makeGuess(boolean isLower) {
+        if (numGuesses != 0) {
+            if (isLower) {
+                upperBound = Math.min(upperBound, lastGuess);
+            } else {
+                lowerBound = Math.max(lowerBound, lastGuess + 1);
+            }
         }
         lastGuess = (lowerBound + upperBound + 1) / 2;
         numGuesses += 1;
@@ -26,14 +33,14 @@ public class ComputerGuessesGame {
     void correctGuess(Consumer<GameResult> gameFinishedCallback) {
         GameResult result = new GameResult(false, lastGuess, numGuesses);
         gameFinishedCallback.accept(result);
+        numGuesses = 0;
     }
 
-    String startNewGame() {
-        numGuesses = 0;
-        upperBound = 1000;
-        lowerBound = 1;
+    int getNumGuesses() {
+        return numGuesses;
+    }
 
-        lastGuess = (lowerBound + upperBound + 1) / 2;
-        return "I guess " + lastGuess + ".";
+    int getLastGuess() {
+        return lastGuess;
     }
 }
