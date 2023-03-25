@@ -1,1 +1,1 @@
-Put your JUnit test classes and test doubles in this folder.
+Thomas St.Jean & Amy Cunningham
